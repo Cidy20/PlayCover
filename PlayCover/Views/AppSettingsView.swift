@@ -142,6 +142,7 @@ struct AppSettingsView: View {
             hasAlias = viewModel.app.hasAlias()
         }
         .padding()
+        .frame(width: 600, height: 400)
     }
 }
 
@@ -217,6 +218,7 @@ struct GraphicsView: View {
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
     @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
     @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
+    @AppStorage("settings.settings.displayRotation") private var displayRotation = 0
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -399,6 +401,19 @@ struct GraphicsView: View {
                         }
                         Spacer()
                     }
+                    HStack {
+                        Text("settings.settings.displayRotation")
+                        Spacer()
+                        Picker("", selection: $settings.settings.displayRotation) {
+                            Text("settings.settings.displayRotation.default").tag(0)
+                            Text("settings.settings.displayRotation.portrait").tag(1)
+                            Text("settings.settings.displayRotation.landscapeRight").tag(2)
+                            Text("settings.settings.displayRotation.portraitUpsideDown").tag(3)
+                            Text("settings.settings.displayRotation.flipFix").tag(4)
+                        }
+                        .frame(alignment: .leading)
+                    }
+                    Spacer()
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()
@@ -732,10 +747,19 @@ struct MiscView: View {
                         Spacer()
                         HStack {
                             Text("settings.text.debugger")
-                            VStack {
-                                Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
-                                Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
-                                    .disabled(!settings.openWithLLDB)
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Toggle("", isOn: $settings.openWithLLDB)
+                                        .labelsHidden()
+                                    Text("settings.toggle.lldb")
+                                }
+
+                                HStack {
+                                    Toggle("", isOn: $settings.openLLDBWithTerminal)
+                                        .labelsHidden()
+                                        .disabled(!settings.openWithLLDB)
+                                    Text("settings.toggle.lldbWithTerminal")
+                                }
                             }
                         }
                     }
@@ -850,7 +874,7 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.playTools")
                 Spacer()
-                Text(String(hasPlayTools))
+                Text(hasPlayTools ? "button.Yes" : "button.No")
             }
             HStack {
                 Text("settings.info.url")
