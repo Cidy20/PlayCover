@@ -167,22 +167,10 @@ struct KeymappingView: View {
                     Toggle("settings.toggle.enableScrollWheelZoom",
                            isOn: $settings.settings.enableScrollWheelZoom)
                         .help("settings.toggle.enableScrollWheelZoom.help")
-                        .onChange(of: settings.settings.enableScrollWheelZoom) { value in
-                            if value {
-                                settings.settings.enableScrollWheelMapping = false
-                                toggleTrigger.toggle()
-                            }
-                        }
                     Spacer()
                     Toggle("settings.toggle.enableScrollWheelMapping",
                            isOn: $settings.settings.enableScrollWheelMapping)
                         .help("settings.toggle.enableScrollWheelMapping.help")
-                        .onChange(of: settings.settings.enableScrollWheelMapping) { value in
-                            if value {
-                                settings.settings.enableScrollWheelZoom = false
-                                toggleTrigger.toggle()
-                            }
-                        }
                 }
                 HStack {
                     Toggle("settings.toggle.disableBuiltinMouse",

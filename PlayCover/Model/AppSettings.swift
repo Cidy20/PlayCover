@@ -55,7 +55,7 @@ struct AppSettingsData: Codable {
     var enableScrollWheelMapping = false // New keymapping logic
 
     enum CodingKeys: String, CodingKey {
-        case bundleIdentifier, keymapping, sensitivity, disableTimeout, iosDeviceModel
+        case bundleIdentifier, keymapping, sensitivity, disableTimeout, displayRotation, iosDeviceModel
         case windowWidth, windowHeight, customScaler, resolution, aspectRatio, notch, bypass
         case discordActivity, version, playChain, playChainDebugging, inverseScreenValues, metalHUD
         case windowFixMethod, injectIntrospection, rootWorkDir, noKMOnInput, hideTitleBar
